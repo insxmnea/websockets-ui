@@ -2,6 +2,7 @@ import WebSocket from "ws";
 import { players } from "../server";
 import { RegistrationDataCmd } from "../types/message";
 import { sendRegistrationMessage } from "../utils/messageFactory";
+import { broadcastWinners } from "./broadcastHandler";
 
 let playerIndexCounter = 1;
 
@@ -43,4 +44,5 @@ export function handleRegistration(ws: WebSocket, data: RegistrationDataCmd) {
     error: false,
     errorText: "",
   });
+  broadcastWinners();
 }
