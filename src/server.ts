@@ -2,12 +2,14 @@ import { Player } from "./types/player";
 import { WebSocketServer } from "ws";
 import { handleConnection } from "./handlers/connectionHandler";
 import { broadcastRooms, broadcastWinners } from "./handlers/broadcastHandler";
+import { Room } from "./types/room";
 
 const PORT = 3000;
 
 export const players = new Map<number, Player>();
-export const rooms = new Map();
+export const rooms = new Map<number, Room>();
 export const winners = new Map();
+export const games = new Map();
 
 export const wss = new WebSocketServer({ port: PORT });
 
