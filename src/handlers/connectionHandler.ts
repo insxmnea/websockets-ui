@@ -1,8 +1,27 @@
 import WebSocket from "ws";
-import { players } from "../server.ts";
+import { players } from "../server";
+import { Message } from "../types/message";
+import { handleMessage } from "./messageHandler";
+import { sendRegistrationMessage } from "../utils/messageFactory";
 
 export const handleConnection = (ws: WebSocket) => {
   console.log("New client connected");
+
+  ws.on("message", (data) => {
+    try {
+      const message: Message = JSON.parse(data.toString());
+      handleMessage(ws, message);
+    } catch (error) {
+      console.error("Error parsing message:", error);
+
+      sendRegistrationMessage(ws, {
+        name: "",
+        index: "",
+        error: true,
+        errorText: "Invalid JSON format",
+      });
+    }
+  });
 
   ws.on("close", () => {
     console.log("Client disconnected");
