@@ -41,7 +41,7 @@ export function handleShips(ws: WebSocket, data: ShipData) {
 
 function createBoard(ships: Ship[]) {
   const board = Array(10)
-    .fill(0)
+    .fill(null)
     .map(() => Array(10).fill(0));
 
   ships.forEach((ship) => {
@@ -50,9 +50,9 @@ function createBoard(ships: Ship[]) {
 
     for (let i = 0; i < length; i++) {
       if (direction) {
-        board[y][x + i] = 1;
-      } else {
         board[y + i][x] = 1;
+      } else {
+        board[y][x + i] = 1;
       }
     }
   });
@@ -73,6 +73,7 @@ function startGame(game: any, room: Room) {
       }),
       id: 0,
     };
+
     player.ws.send(JSON.stringify(response));
   });
 
@@ -88,6 +89,7 @@ function sendTurn(game: any, room: Room) {
       }),
       id: 0,
     };
+
     player.ws.send(JSON.stringify(response));
   });
 }
