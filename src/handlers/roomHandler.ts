@@ -45,7 +45,7 @@ function createRoom(player: Player) {
 }
 
 function joinRoom(player: Player, roomId: string) {
-  const room = rooms.get(parseInt(roomId));
+  const room = rooms.get(Number(roomId));
 
   if (!room) {
     console.log(`Room ${roomId} not found`);

@@ -24,13 +24,14 @@ export const handleConnection = (ws: WebSocket) => {
   });
 
   ws.on("close", () => {
-    console.log("Client disconnected");
+    let playerName = "";
     for (const [index, player] of players.entries()) {
       if (player.ws === ws) {
-        players.delete(index);
+        playerName = player.name;
         break;
       }
     }
+    console.log(`Client disconnected: ${playerName || "Unknown"}`);
   });
 
   ws.on("error", (error) => {
